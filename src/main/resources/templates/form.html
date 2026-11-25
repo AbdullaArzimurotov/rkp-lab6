@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новый школьник</title>
+    <link rel="stylesheet" th:href="@{/app.css}">
+</head>
+<body>
+<main class="paper">
+<h1>Новый школьник</h1>
+<form th:action="@{/schoolboys}" th:object="${schoolboy}" method="post">
+    <ul class="error" th:if="${#fields.hasAnyErrors()}">
+        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+    </ul>
+<h2>Личные данные</h2>
+<div class="grid">
+    <label>Фамилия<input type="text" th:field="*{surname}" required maxlength="80"></label>
+    <label>Имя<input type="text" th:field="*{name}" required maxlength="80"></label>
+    <label>Отчество<input type="text" th:field="*{patronymic}" maxlength="80"></label>
+<label>Пол<select th:field="*{gender}" required>
+    <option value="">Выберите значение</option>
+    <option value="Мужской">Мужской</option>
+    <option value="Женский">Женский</option>
+    </select></label>
+    <label>Национальность<input type="text" th:field="*{nationality}" required maxlength="80"></label>
+    <label>Рост, см<input type="number" th:field="*{height}" required min="40" max="250" step="0.1"></label>
+    <label>Вес, кг<input type="number" th:field="*{weight}" required min="2" max="300" step="0.1"></label>
+    <label>Дата рождения<input type="date" th:field="*{birthDate}" required></label>
+    <label>Мобильный телефон<input type="tel" th:field="*{phoneNumber}" required maxlength="22"></label>
+</div>
+<h2>Домашний адрес</h2>
+<div class="grid">
+    <label>Почтовый индекс<input type="text" th:field="*{address.postalCode}" required inputmode="numeric" maxlength="6"></label>
+    <label>Страна<input type="text" th:field="*{address.country}" required maxlength="80"></label>
+    <label>Область<input type="text" th:field="*{address.region}" required maxlength="80"></label>
+    <label>Район<input type="text" th:field="*{address.district}" required maxlength="80"></label>
+    <label>Город<input type="text" th:field="*{address.city}" required maxlength="80"></label>
+    <label>Улица<input type="text" th:field="*{address.street}" required maxlength="80"></label>
+    <label>Дом<input type="text" th:field="*{address.house}" required maxlength="20"></label>
+    <label>Квартира<input type="text" th:field="*{address.apartment}" maxlength="20"></label>
+</div>
+<h2>Место учёбы</h2>
+<div class="grid">
+    <label>Школа<select th:field="*{schoolId}" data-school-select required>
+        <option value="">Выберите школу</option>
+        <option th:each="school : ${schools}" th:value="${school.id}" th:text="${school.name}"></option>
+    </select></label>
+    <label>Класс<select th:field="*{classId}" data-class-select required>
+        <option value="">Выберите класс</option>
+        <option th:each="clazz : ${classes}" th:value="${clazz.id}" th:attr="data-school=${clazz.schoolId}"
+                th:text="${clazz.name}"></option>
+    </select></label>
+</div>
+<div class="actions">
+    <button type="submit">Сохранить</button>
+    <a class="button secondary" th:href="@{/schoolboys}">К списку</a>
+</div>
+</form>
+</main>
+<script th:src="@{/classes.js}" defer></script>
+</body>
+</html>

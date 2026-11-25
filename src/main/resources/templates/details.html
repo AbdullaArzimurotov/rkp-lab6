@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карточка школьника</title>
+    <link rel="stylesheet" th:href="@{/app.css}">
+</head>
+<body>
+<main class="paper">
+<h1 th:text="${schoolboy.data.surname + ' ' + schoolboy.data.name}"></h1>
+<dl>
+    <dt>Идентификатор</dt><dd th:text="${schoolboy.id}"></dd>
+    <dt>Школа</dt><dd th:text="${schoolboy.schoolName}"></dd>
+    <dt>Класс</dt><dd th:text="${schoolboy.className}"></dd>
+    <dt>Фамилия</dt><dd th:text="${schoolboy.data.surname}"></dd>
+    <dt>Имя</dt><dd th:text="${schoolboy.data.name}"></dd>
+    <dt>Отчество</dt><dd th:text="${schoolboy.data.patronymic}"></dd>
+    <dt>Пол</dt><dd th:text="${schoolboy.data.gender}"></dd>
+    <dt>Национальность</dt><dd th:text="${schoolboy.data.nationality}"></dd>
+    <dt>Рост, см</dt><dd th:text="${schoolboy.data.height}"></dd>
+    <dt>Вес, кг</dt><dd th:text="${schoolboy.data.weight}"></dd>
+    <dt>Дата рождения</dt><dd th:text="${schoolboy.data.birthDate}"></dd>
+    <dt>Мобильный телефон</dt><dd th:text="${schoolboy.data.phoneNumber}"></dd>
+</dl>
+<h2>Домашний адрес</h2>
+<dl>
+    <dt>Почтовый индекс</dt><dd th:text="${schoolboy.data.address.postalCode}"></dd>
+    <dt>Страна</dt><dd th:text="${schoolboy.data.address.country}"></dd>
+    <dt>Область</dt><dd th:text="${schoolboy.data.address.region}"></dd>
+    <dt>Район</dt><dd th:text="${schoolboy.data.address.district}"></dd>
+    <dt>Город</dt><dd th:text="${schoolboy.data.address.city}"></dd>
+    <dt>Улица</dt><dd th:text="${schoolboy.data.address.street}"></dd>
+    <dt>Дом</dt><dd th:text="${schoolboy.data.address.house}"></dd>
+    <dt>Квартира</dt><dd th:text="${schoolboy.data.address.apartment}"></dd>
+</dl>
+<a class="button secondary" th:href="@{/schoolboys}">К списку</a>
+</main>
+</body>
+</html>

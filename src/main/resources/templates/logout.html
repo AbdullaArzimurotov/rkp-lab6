@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выход из системы</title>
+    <link rel="stylesheet" th:href="@{/app.css}">
+</head>
+<body>
+<main class="paper">
+<h1>Выход из системы</h1>
+<p>Завершить текущий сеанс?</p>
+<form class="actions" th:action="@{/logout}" method="post">
+    <button class="danger" type="submit">Выйти</button>
+    <a class="button secondary" th:href="@{/schoolboys}">Остаться в системе</a>
+</form>
+</main>
+</body>
+</html>

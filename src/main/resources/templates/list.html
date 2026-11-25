@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Школьники</title>
+    <link rel="stylesheet" th:href="@{/app.css}">
+</head>
+<body>
+<main class="wide">
+<header>
+    <h1>Школьники</h1>
+    <nav aria-label="Действия">
+        <a class="button" sec:authorize="hasRole('ADMIN')" th:href="@{/schoolboys/new}">Добавить школьника</a>
+        <span class="muted" sec:authentication="name"></span>
+        <a class="button secondary" th:href="@{/logout}">Выйти</a>
+    </nav>
+</header>
+<form class="panel" th:action="@{/schoolboys}" th:object="${filter}" method="get" aria-label="Фильтр школьников">
+    <ul class="error" th:if="${#fields.hasAnyErrors()}">
+        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+    </ul>
+<div class="grid filters">
+    <label>Фамилия<input type="search" th:field="*{surname}" maxlength="80"></label>
+    <label>Город<input type="search" th:field="*{city}" maxlength="80"></label>
+    <label>Школа<select th:field="*{schoolId}" data-school-select>
+        <option value="">Все школы</option>
+        <option th:each="school : ${schools}" th:value="${school.id}" th:text="${school.name}"></option>
+    </select></label>
+    <label>Класс<select th:field="*{classId}" data-class-select>
+        <option value="">Все классы</option>
+        <option th:each="clazz : ${classes}" th:value="${clazz.id}" th:attr="data-school=${clazz.schoolId}"
+                th:text="${clazz.name}"></option>
+    </select></label>
+</div>
+<div class="actions">
+    <button type="submit">Найти</button>
+    <a class="button secondary" th:href="@{/schoolboys}">Сбросить</a>
+</div>
+</form>
+<p class="muted summary" th:text="'Найдено записей: ' + ${schoolboys.size()}"></p>
+<div class="table">
+<table>
+    <thead><tr><th>Фамилия и имя</th><th>Город</th><th>Школа</th><th>Класс</th><th>Телефон</th></tr></thead>
+    <tbody>
+    <tr th:each="record : ${schoolboys}">
+        <td><a th:href="@{/schoolboys/{id}(id=${record.id})}"
+               th:text="${record.data.surname + ' ' + record.data.name}"></a></td>
+        <td th:text="${record.data.address.city}"></td><td th:text="${record.schoolName}"></td>
+        <td th:text="${record.className}"></td><td th:text="${record.data.phoneNumber}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</main>
+<script th:src="@{/classes.js}" defer></script>
+</body>
+</html>
